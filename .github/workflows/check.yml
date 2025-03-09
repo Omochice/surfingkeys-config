@@ -10,7 +10,8 @@ jobs:
   path-filter:
     timeout-minutes: 5
     outputs:
-      typescrpit: ${{steps.changes.outputs.typescript}}
+      this: ${{steps.changes.outputs.this}}
+      typescript: ${{steps.changes.outputs.typescript}}
     runs-on: ubuntu-latest
     permissions: {}
     steps:
@@ -21,7 +22,9 @@ jobs:
         id: changes
         with:
           filters: |
-            typescrpit:
+            this:
+              - ./.github/workflows/check.yml
+            typescript:
               - ./**/*.ts
               - package.json
               - pnpm-lock.yaml
@@ -29,7 +32,7 @@ jobs:
               - biome.json
   check-code:
     needs: path-filter
-    if: needs.path-filter.outputs.typescript == 'true'
+    if: needs.path-filter.outputs.this == 'true' || needs.path-filter.outputs.typescript == 'true'
     runs-on: ubuntu-latest
     permissions: {}
     strategy:
