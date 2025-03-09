@@ -62,22 +62,6 @@ api.addSearchAlias(
   "https://developer.mozilla.org/ja/search?q=",
   "s",
   "https://developer.mozilla.org/api/v1/search/ja?q=",
-  (response) => {
-    const parsed = JSON.parse(response.text);
-    console.log(parsed);
-    return parsed.documents.map(({ title, slug, summary, locale }) =>
-      api.createSuggestionItem(
-        `
-      <div>
-        <div class="title"><strong>${title}</strong></div>
-        <div style="font-size:0.8em"><em>${slug}</em></div>
-        <div>${summary}</div>
-      </div>
-      `,
-        { url: `https://developer.mozilla.org/${locale}/docs/${slug}` },
-      ),
-    );
-  },
 );
 
 api.addSearchAlias(
