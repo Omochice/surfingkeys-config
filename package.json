@@ -6,7 +6,9 @@
   "keywords": [],
   "license": "zlib",
   "author": "Omochice",
+  "type": "module",
   "scripts": {
+    "build": "rolldown -c rolldown.config.ts",
     "fmt": "npm-run-all2 --parallel fmt:*",
     "fmt:biome": "biome format --fix",
     "fmt:package": "sort-package-json",
