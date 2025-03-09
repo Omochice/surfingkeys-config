@@ -8,6 +8,9 @@
   "author": "Omochice",
   "type": "module",
   "scripts": {
+    "check": "npm-run-all2 --parallel check:*",
+    "check:type": "tsc",
+    "check:biome": "biome ci",
     "build": "rolldown -c rolldown.config.ts",
     "fmt": "npm-run-all2 --parallel fmt:*",
     "fmt:biome": "biome format --fix",
