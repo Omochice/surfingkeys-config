@@ -12,7 +12,7 @@
     "check:type": "tsc",
     "check:biome": "biome ci",
     "build": "rolldown -c rolldown.config.ts",
-    "fmt": "npm-run-all2 --parallel fmt:*",
+    "fmt": "npm-run-all2 fmt:package fmt:biome",
     "fmt:biome": "biome format --fix",
     "fmt:package": "sort-package-json",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -26,8 +26,6 @@
     "typescript": "^5.8.2"
   },
   "pnpm": {
-    "onlyBuiltDependencies": [
-      "@biomejs/biome"
-    ]
+    "onlyBuiltDependencies": ["@biomejs/biome"]
   }
 }
