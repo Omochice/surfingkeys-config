@@ -365,6 +365,27 @@ type Api = {
     options?: { favicon_url?: string; skipMaps?: boolean },
   ): void;
 
+  /**
+   * Call background `action` with `args`, the `callback` will be executed with response from background.
+   *
+   * Parameters
+   *
+   * @param action a background action to be called.
+   * @param args the parameters to be passed to the background action.
+   * @param callback a function to be executed with the result from the background action.
+   *
+   * @example
+   * ```javascript
+   * RUNTIME('getTabs', {queryInfo: {currentWindow: true}}, response => {
+   *   console.log(response);
+   * });
+   * ```
+   */
+  RUNTIME(
+    action: string,
+    args: object,
+    callback: (response: unknown) => void,
+  ): void;
   Front: Front;
   Hints: Hints;
   Clipboard: Clipboard_;
