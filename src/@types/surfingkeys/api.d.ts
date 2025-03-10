@@ -27,6 +27,20 @@ type Front = {
   openOmnibar(args: { type: string; extra?: unknown; tabbed?: boolean }): void;
 
   /**
+   * Register an inline query.
+   *
+   * @see [example][110].
+   *
+   * @param args `url`: string or function, `parseResult`: function, a function to parse result from dictionary service and return a HTML string to render explanation, `headers`: object\[optional], in case your dictionary service needs authentication.
+   */
+  // FIXME
+  registerInlineQuery(args: {
+    url: string | Function;
+    parseResult: (args: unknown[]) => string;
+    headers?: Record<string, string>;
+  }): void;
+
+  /**
    * Show message in banner.
    *
    * @param `msg` the message to be displayed in banner.
@@ -37,6 +51,18 @@ type Front = {
    * ```
    */
   showBanner(msg: string, timeout?: number): void;
+
+  /**
+   * Show message in popup.
+   *
+   * @param msg the message to be displayed in popup.
+   *
+   * @example
+   * ```javascript
+   * Front.showPopup(window.location.href);
+   * ```
+   */
+  showPopup(msg: string): void;
 };
 
 type Hints = {
