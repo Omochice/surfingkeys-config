@@ -299,18 +299,6 @@ type Api = {
   ): void;
 
   /**
-   * Unmap a key sequence in normal mode.
-   *
-   * @param keystroke a key sequence to be removed.
-   * @param domain a Javascript regex pattern to identify the domains that this mapping will be removed. (optional, default `null`)
-   * @example
-   * ```javascript
-   * unmap("<<", /youtube.com/);
-   * ```
-   */
-  unmap(keystroke: string, domain?: RegExp): void;
-
-  /**
    * Map a key sequence to another in normal mode.
    *
    * @param new_keystroke a key sequence to replace
@@ -330,6 +318,56 @@ type Api = {
   ): void;
 
   /**
+   * Unmap a key sequence in normal mode.
+   *
+   * @param keystroke a key sequence to be removed.
+   * @param domain a Javascript regex pattern to identify the domains that this mapping will be removed. (optional, default `null`)
+   * @example
+   * ```javascript
+   * unmap("<<", /youtube.com/);
+   * ```
+   */
+  unmap(keystroke: string, domain?: RegExp): void;
+
+  /**
+   * Unmap all keybindings except those specified.
+   *
+   * @param keystrokes **[array][106]** the keybindings you want to keep.
+   * @param domain **regex** a Javascript regex pattern to identify the domains that this mapping will be removed. (optional, default `null`)
+   *
+   * @example
+   * ```javascript
+   * unmapAllExcept(['E','R','T'], /google.com|twitter.com/);
+   * ```
+   */
+  unmapAllExcept(keystroke: string, domain?: RegExp): void;
+
+  /**
+   * Map a key sequence to another in insert mode.
+   * @see {@link Api.map}
+   *
+   * @param new_keystroke - The new_keystroke param
+   * @param old_keystroke - The old_keystroke param
+   * @param domain a Javascript regex pattern to identify the domains that this mapping works. (optional, default `null`)
+   * @param new_annotation use it instead of the annotation from old_keystroke if provided. (optional, default `null`)
+   */
+  imap(
+    new_keystroke: string,
+    old_keystroke: string,
+    domain?: RegExp,
+    new_annotation?: string,
+  ): void;
+
+  /**
+   * Unmap a key sequence in insert mode.
+   * @see {Api.unmap}
+   *
+   * @param keystroke a key sequence to be removed.
+   * @param domain a Javascript regex pattern to identify the domains that this mapping will be removed. (optional, default `null`)
+   */
+  iunmap(keystroke: string, domain?: RegExp): void;
+
+  /**
    * Map a key sequence to another in omnibar.
    * @see {@link Api.map}
    *
@@ -339,6 +377,47 @@ type Api = {
    * @param new_annotation use it instead of the annotation from old_keystroke if provided. (optional, default `null`)
    */
   cmap(
+    new_keystroke: string,
+    old_keystroke: string,
+    domain?: RegExp,
+    new_annotation?: string,
+  ): void;
+
+  /**
+   * Map a key sequence to another in visual mode.
+   * @see {@link Api.map}
+   *
+   * @param new_keystroke - The new_keystroke param
+   * @param old_keystroke - The old_keystroke param
+   * @param domain a Javascript regex pattern to identify the domains that this mapping works. (optional, default `null`)
+   * @param new_annotation use it instead of the annotation from old_keystroke if provided. (optional, default `null`)
+   */
+  vmap(
+    new_keystroke: string,
+    old_keystroke: string,
+    domain?: RegExp,
+    new_annotation?: string,
+  ): void;
+
+  /**
+   * Unmap a key sequence in visual mode.
+   * @see {Api.unmap}
+   *
+   * @param keystroke a key sequence to be removed.
+   * @param domain a Javascript regex pattern to identify the domains that this mapping will be removed. (optional, default `null`)
+   */
+  vunmap(keystroke: string, domain?: RegExp): void;
+
+  /**
+   * Map a key sequence to another in lurk mode.
+   * @see {@link Api.map}
+   *
+   * @param new_keystroke - The new_keystroke param
+   * @param old_keystroke - The old_keystroke param
+   * @param domain a Javascript regex pattern to identify the domains that this mapping works. (optional, default `null`)
+   * @param new_annotation use it instead of the annotation from old_keystroke if provided. (optional, default `null`)
+   */
+  lmap(
     new_keystroke: string,
     old_keystroke: string,
     domain?: RegExp,
