@@ -200,6 +200,23 @@ type Normal = {
   jumpViMark(mark: string): void;
 };
 
+type Visual = {
+  /**
+   * Set styles for visual mode.
+   *
+   * @param element element in visual mode, which can be `marks` and `cursor`.
+   * @param style css style
+   *
+   * @sxample
+   *
+   * ```javascript
+   * Visual.style('marks', 'background-color: #89a1e2;');
+   * Visual.style('cursor', 'background-color: #9065b7;');
+   * ```
+   */
+  style(element: "marks" | "cursor", style: string);
+};
+
 type Api = {
   /**
    * Unmap a key sequence in normal mode.
@@ -326,6 +343,7 @@ type Api = {
   Hints: Hints;
   Clipboard: Clipboard_;
   Normal: Normal;
+  Visual: Viaual;
 };
 
 declare const api: Api;
