@@ -41,6 +41,81 @@ type Front = {
 
 type Hints = {
   /**
+   * Set characters for generating hints, this API is to replace original setting like `Hints.characters = "asdgqwertzxcvb";`.
+   *
+   * @param characters the characters for generating hints.
+   * @example
+   * ```javascript
+   * Hints.setCharacters("asdgqwertzxcvb");
+   * ```
+   */
+  setCharacters(characters: string): void;
+
+  /**
+   * Use digits as hint label, with it set you could type text to filter links, this API is to replace original setting like `Hints.numericHints = true;`.
+   *
+   * @example
+   * ```javascript
+   * Hints.setNumeric();
+   * ```
+   */
+  setNumeric(): void;
+
+  /**
+   * The default `onHintKey` implementation.
+   * @see {@link Hints.create}
+   *
+   * @param element **[HTMLElement][108]** the element for which the pressed hint is targeted.
+   * ```javascript
+   * mapkey('q', 'click on images', function() {
+   *     Hints.create("div.media_box img", Hints.dispatchMouseClick);
+   * }, {domain: /weibo.com/i});
+   * ```
+   */
+  dispatchMouseClick(element: HTMLElement): void;
+
+  /**
+   * Click element or create hints for elements to click.
+   *
+   * @param links click on it if there is only one in the array or `force` parameter is true, otherwise hints will be generated for them. If `links` is a string, it will be used as css selector for `getClickableElements`.
+   * @param force force to click the first input element whether there are more than one elements in `links` or not. (optional, default `false`)
+   *
+   * @example
+   * ```javascript
+   * mapkey('zz', 'Hide replies', function() {
+   *     Hints.click(document.querySelectorAll("#less-replies:not([hidden])"), true);
+   * });
+   * ```
+   */
+  click(links: string | HTMLElement[], force = false): void;
+
+  /**
+   * Create hints for elements to click.
+   * @see {@link Hints.dispatchMouseClick}
+   *
+   * @param cssSelector if `links` is a string, it will be used as css selector.
+   * @param onHintKey a callback function on hint keys pressed.
+   * @param attrs `active`: whether to activate the new tab when a link is opened, `tabbed`: whether to open a link in a new tab, `multipleHits`: whether to stay in hints mode after one hint is triggered. (optional, default `null`)
+   *
+   * @example
+   *
+   * ```javascript
+   * mapkey('yA', '#7Copy a link URL to the clipboard', function() {
+   *     Hints.create('*[href]', function(element) {
+   *         Clipboard.write('[' + element.innerText + '](' + element.href + ')');
+   *     });
+   * });
+   * ```
+   *
+   * @Returns whether any hint is created for target elements.
+   */
+  create(
+    cssSelector: string | HTMLElement[],
+    onHintKey: (element: Element) => void,
+    attrs: "active" | "tabbed" | "multipleHits" | null = null,
+  ): boolean;
+
+  /**
    * Set styles for hints.
    *
    * @param css styles for hints.
@@ -114,7 +189,7 @@ type Api = {
 
   /**
    * Map a key sequence to another in omnibar.
-   * @see {@link map}
+   * @see {@link Api.map}
    *
    * @param new_keystroke - The new_keystroke param
    * @param old_keystroke - The old_keystroke param
