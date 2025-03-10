@@ -56,6 +56,19 @@ type Hints = {
 
 type Clipboard_ = {
   /**
+   * Read from clipboard.
+   *
+   * @param onReady a callback function to handle text read from clipboard.
+   * @example
+   * ```javascript
+   * Clipboard.read(function(response) {
+   *   console.log(response.data);
+   * });
+   * ```
+   */
+  read(onReady: (response: unknown) => void): void;
+
+  /**
    * Write text to clipboard.
    *
    * @param text the text to be written to clipboard.
