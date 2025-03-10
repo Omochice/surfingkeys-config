@@ -477,6 +477,144 @@ type Api = {
   ): void;
 
   /**
+   * Remove a search engine alias from Omnibar.
+   *
+   * @param `alias` the alias of the search engine to be removed.
+   * @param `search_leader_key` `<search_leader_key><alias>` in normal mode will search selected text with this search engine directly without opening the omnibar, for example `sd`. (optional, default `s`)
+   * @param `only_this_site_key` `<search_leader_key><only_this_site_key><alias>` in normal mode will search selected text within current site with this search engine directly without opening the omnibar, for example `sod`. (optional, default `o`)
+   * @example
+   * ```javascript
+   * removeSearchAlias('d');
+   * ```
+   */
+  removeSearchAlias(
+    alias: string,
+    search_leader_key = "s",
+    only_this_site_key = "o",
+  ): void;
+
+  /**
+   * Search selected with.
+   *
+   * @param se **[string][103]** a search engine's search URL
+   * @param onlyThisSite **[boolean][107]** whether to search only within current site, need support from the provided search engine. (optional, default `false`)
+   * @param interactive **[boolean][107]** whether to search in interactive mode, in case that you need some small modification on the selected content. (optional, default `false`)
+   * @param alias **[string][103]** only used with interactive mode, in such case the url from `se` is ignored, SurfingKeys will construct search URL from the alias registered by `addSearchAlias`. (optional, default `""`)
+   * @example
+   * ```javascript
+   * searchSelectedWith('https://translate.google.com/?hl=en#auto/en/');
+   * ```
+   */
+  searchSelectedWith(
+    se: string,
+    onlyThisSite = false,
+    interactive = false,
+    alias = "",
+  ): void;
+
+  /**
+   * Get current browser name
+   *
+   * Returns "Chrome" | "Firefox" | "Safari"
+   */
+  getBrowserName(): "Chrome" | "Firefox" | "Safari";
+
+  /**
+   * Check whether an element is in viewport.
+   * @param `el` the element to be checked.
+   * @param `ignoreSize` whether to ignore size of the element, otherwise the element must be with size 4\*4. (optional, default `false`)
+   *
+   * @return whether an element is in viewport.
+   */
+  isElementPartiallyInViewport(el: Element, ignoreSize = false): boolean;
+
+  /**
+   * Get all clickable elements. SurfingKeys has its own logic to identify clickable elements, such as a `HTMLAnchorElement` or elements with cursor as pointer. This function provides two parameters to identify those clickable elements that SurfingKeys failed to identify.
+   *
+   * @param selectorString **[string][103]** extra css selector of those clickable elements.
+   * @param pattern **regex** a regular expression that matches text of the clickable elements.
+   * @return array of clickable elements.
+   * @example
+   * ```javascript
+   * var elms = getClickableElements("[rel=link]", /click this/);
+   * ```
+   */
+  getClickableElements(selectorString: string, pattern: RegExp): Element[];
+
+  /**
+   * Open links in new tabs.
+   *
+   * @param str **[string][103]** links to be opened, the links should be split by `\n` if there are more than one.
+   * @param simultaneousness **[number][109]** how many tabs will be opened simultaneously, the rest will be queued and opened later whenever a tab is closed. (optional, default `5`)
+   * @example
+   * ```javascript
+   * mapkey("<Space>", "pause/resume on youtube", function() {
+   *     var btn = document.querySelector("button.ytp-ad-overlay-close-button") || document.querySelector("button.ytp-ad-skip-button") || document.querySelector('ytd-watch-flexy button.ytp-play-button');
+   *     btn.click();
+   * }, {domain: /youtube.com/i});
+   * ```
+   */
+  tabOpenLink(str: string, simultaneousness = 5): void;
+
+  /**
+   * Insert javascript code into main world context.
+   *
+   * @params code a javascript function to be executed in main world context, or an URL of js file.
+   * @params onload a callback function after requested code executed.
+   */
+  insertJS(code: string | Function, onload?: Function): void;
+
+  /**
+   * Map the key sequence `lhs` to `rhs` for mode `ctx` in ACE editor.
+   *
+   * @param `lhs` **[string][103]** a key sequence to replace
+   * @param `rhs` **[string][103]** a key sequence to be replaced
+   * @param `ctx` **[string][103]** a mode such as `insert`, `normal`.
+   * @example
+   * ```javascript
+   * aceVimMap('J', ':bn', 'normal');
+   * ```
+   */
+  aceVimMap(lhs: string, rhs: string, ctx: "insert" | "normal"): void;
+
+  /**
+   * Add map key in ACE editor.
+   *
+   * @param `objects` multiple objects to define key map in ACE, see more from [ace/keyboard/vim.js][112]
+   * @example
+   * ```javascript
+   * addVimMapKey(
+   *     {
+   *         keys: 'n',
+   *         type: 'motion',
+   *         motion: 'moveByCharacters',
+   *         motionArgs: {
+   *             forward: false
+   *         }
+   *     },
+   *
+   *     {
+   *         keys: 'e',
+   *         type: 'motion',
+   *         motion: 'moveByLines',
+   *         motionArgs: {
+   *             forward: true,
+   *             linewise: true
+   *         }
+   *     }
+   * );
+   * ```
+   */
+  addVimMapKey(
+    ...objects: {
+      keys: string;
+      type: string;
+      motion: string;
+      motionArgs: { forward: false } | { forward: true; linewise: boolean };
+    }[]
+  ): void;
+
+  /**
    * Call background `action` with `args`, the `callback` will be executed with response from background.
    *
    * Parameters
