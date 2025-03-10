@@ -155,6 +155,51 @@ type Clipboard_ = {
   write(text: string): void;
 };
 
+type Normal = {
+  /**
+   * Enter PassThrough mode.
+   *
+   * @param timeout how many milliseconds to linger in PassThrough mode, to ignore it will stay in PassThrough mode until an Escape key is pressed.
+   */
+  passThrough(timeout?: number): void;
+
+  /**
+   * Scroll within current target.
+   *
+   * @param type down | up | pageDown | fullPageDown | pageUp | fullPageUp | top | bottom | left | right | leftmost | rightmost | byRatio
+   */
+  scroll(
+    type:
+      | "down"
+      | "up"
+      | "pageDown"
+      | "fullPageDown"
+      | "pageUp"
+      | "fullPageUp"
+      | "top"
+      | "bottom"
+      | "left"
+      | "right"
+      | "leftmost"
+      | "rightmost"
+      | "byRatio",
+  ): void;
+
+  /**
+   * Feed keys into Normal mode.
+   *
+   * @param keys the keys to be fed into Normal mode.
+   */
+  feedkeys(keys: string): void;
+
+  /**
+   * Jump to a vim-like mark.
+   *
+   * @param   mark a vim-like mark.
+   */
+  jumpViMark(mark: string): void;
+};
+
 type Api = {
   /**
    * Unmap a key sequence in normal mode.
@@ -280,6 +325,7 @@ type Api = {
   Front: Front;
   Hints: Hints;
   Clipboard: Clipboard_;
+  Normal: Normal;
 };
 
 declare const api: Api;
