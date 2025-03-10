@@ -245,6 +245,60 @@ type Visual = {
 
 type Api = {
   /**
+   * Create a shortcut in normal mode to execute your own action.
+   *
+   * @param keys the key sequence for the shortcut.
+   * @param annotation a help message to describe the action, which will displayed in help opened by `?`.
+   * @param jscode a Javascript function to be bound. If the function needs an argument, next pressed key will be fed to the function.
+   * @param options `domain`: regex, a Javascript regex pattern to identify the domains that this mapping works, for example, `/github\.com/i` says that this mapping works only for github.com, `repeatIgnore`: boolean, whether this action can be repeated by dot command. (optional, default `null`)
+   * @example
+   * ```javascript
+   * mapkey("<Space>", "pause/resume on youtube", function() {
+   *     var btn = document.querySelector("button.ytp-ad-overlay-close-button") || document.querySelector("button.ytp-ad-skip-button") || document.querySelector('ytd-watch-flexy button.ytp-play-button');
+   *     btn.click();
+   * }, {domain: /youtube.com/i});
+   * ```
+   */
+  mapkey(
+    keys: string,
+    annotation: string,
+    jscode: () => void,
+    options?: { domain?: RegExp; repeatIgnore?: boolean },
+  ): void;
+
+  /**
+   * Create a shortcut in visual mode to execute your own action.
+   * @see {@link Api.mapkey}
+   *
+   * @param keys the key sequence for the shortcut.
+   * @param annotation a help message to describe the action, which will displayed in help opened by `?`.
+   * @param jscode a Javascript function to be bound. If the function needs an argument, next pressed key will be fed to the function.
+   * @param options `domain`: regex, a Javascript regex pattern to identify the domains that this mapping works, for example, `/github\.com/i` says that this mapping works only for github.com, `repeatIgnore`: boolean, whether this action can be repeated by dot command. (optional, default `null`)
+   */
+  vmapkey(
+    keys: string,
+    annotation: string,
+    jscode: () => void,
+    options?: { domain?: RegExp; repeatIgnore?: boolean },
+  ): void;
+
+  /**
+   * Create a shortcut in insert mode to execute your own action.
+   * @see {@link Api.mapkey}
+   *
+   * @param keys the key sequence for the shortcut.
+   * @param annotation a help message to describe the action, which will displayed in help opened by `?`.
+   * @param jscode a Javascript function to be bound. If the function needs an argument, next pressed key will be fed to the function.
+   * @param options `domain`: regex, a Javascript regex pattern to identify the domains that this mapping works, for example, `/github\.com/i` says that this mapping works only for github.com, `repeatIgnore`: boolean, whether this action can be repeated by dot command. (optional, default `null`)
+   */
+  imapkey(
+    keys: string,
+    annotation: string,
+    jscode: () => void,
+    options?: { domain?: RegExp; repeatIgnore?: boolean },
+  ): void;
+
+  /**
    * Unmap a key sequence in normal mode.
    *
    * @param keystroke a key sequence to be removed.
@@ -289,28 +343,6 @@ type Api = {
     old_keystroke: string,
     domain?: RegExp,
     new_annotation?: string,
-  ): void;
-
-  /**
-   * Create a shortcut in normal mode to execute your own action.
-   *
-   * @param keys the key sequence for the shortcut.
-   * @param annotation a help message to describe the action, which will displayed in help opened by `?`.
-   * @param jscode a Javascript function to be bound. If the function needs an argument, next pressed key will be fed to the function.
-   * @param options `domain`: regex, a Javascript regex pattern to identify the domains that this mapping works, for example, `/github\.com/i` says that this mapping works only for github.com, `repeatIgnore`: boolean, whether this action can be repeated by dot command. (optional, default `null`)
-   * @example
-   * ```javascript
-   * mapkey("<Space>", "pause/resume on youtube", function() {
-   *     var btn = document.querySelector("button.ytp-ad-overlay-close-button") || document.querySelector("button.ytp-ad-skip-button") || document.querySelector('ytd-watch-flexy button.ytp-play-button');
-   *     btn.click();
-   * }, {domain: /youtube.com/i});
-   * ```
-   */
-  mapkey(
-    keys: string,
-    annotation: string,
-    jscode: () => void,
-    options?: { domain?: RegExp; repeatIgnore?: boolean },
   ): void;
 
   /**
