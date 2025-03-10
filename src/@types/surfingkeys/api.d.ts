@@ -3,7 +3,7 @@ type Front = {
    * open the omnibar.
    *
    * @param args `type` the sub type for the omnibar, which can be `bookmarks`, `addbookmark`, `history`, `urls`, `recentlyclosed`, `taburls`, `tabs`, `windows`, `vimarks`, `searchengine`, `commands`, `omniquery` and `userurls`.
-   * @examples
+   * @example
    * ```javascript
    * mapkey('ou', '#8open aws services', function() {
    *     var services = array.from(top.document.queryselectorall('#awsc-services-container li[data-service-href]')).map(function(li) {
@@ -31,7 +31,7 @@ type Front = {
    *
    * @param `msg` the message to be displayed in banner.
    * @param `timeout` milliseconds after which the banner will disappear. (optional, default `1600`)
-   * @examples
+   * @example
    * ```javascript
    * Front.showBanner(window.location.href);
    * ```
@@ -59,7 +59,7 @@ type Clipboard_ = {
    * Write text to clipboard.
    *
    * @param text the text to be written to clipboard.
-   * @examples
+   * @example
    * ```javascript
    * Clipboard.write(window.location.href);
    * ```
