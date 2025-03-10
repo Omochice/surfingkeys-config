@@ -5,5 +5,6 @@ export default defineConfig({
   output: {
     format: "es",
     file: "dist/index.js",
+    minify: true,
   },
 });
