@@ -35,7 +35,7 @@ type Front = {
    */
   // FIXME
   registerInlineQuery(args: {
-    url: string | Function;
+    url: string | ((...args: unknown[]) => unknown);
     parseResult: (args: unknown[]) => string;
     headers?: Record<string, string>;
   }): void;
@@ -562,7 +562,10 @@ type Api = {
    * @params code a javascript function to be executed in main world context, or an URL of js file.
    * @params onload a callback function after requested code executed.
    */
-  insertJS(code: string | Function, onload?: Function): void;
+  insertJS(
+    code: string | ((...args: unknown[]) => unknown),
+    onload?: (...args: unknown[]) => unknown,
+  ): void;
 
   /**
    * Map the key sequence `lhs` to `rhs` for mode `ctx` in ACE editor.
