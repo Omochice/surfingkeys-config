@@ -20,14 +20,7 @@ api.removeSearchAlias("d");
 api.addSearchAlias(
   "hd",
   "html.duckduckgo",
-  "https://html.duckduckgo.com/html?q=",
-  "s",
-);
-
-api.addSearchAlias(
-  "ja",
-  "html.duckduckgo.ja",
-  "https://html.duckduckgo.com/html?kl=jp-jp&q=",
+  "https://duckduckgo.com?q=",
   "s",
 );
 
