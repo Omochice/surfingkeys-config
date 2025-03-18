@@ -17,12 +17,7 @@ api.unmap("ZZ");
 
 api.removeSearchAlias("d");
 
-api.addSearchAlias(
-  "hd",
-  "html.duckduckgo",
-  "https://duckduckgo.com?q=",
-  "s",
-);
+api.addSearchAlias("hd", "html.duckduckgo", "https://duckduckgo.com?q=", "s");
 
 settings.defaultSearchEngine = "hd";
 api.Hints.style("font-size: 16px;");
