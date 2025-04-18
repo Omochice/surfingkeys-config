@@ -76,7 +76,7 @@ api.addSearchAlias(
 api.mapkey("P", "search word on perplexity in other tab", () => {
   api.Front.openOmnibar({
     type: "SearchEngine",
-    extra: "perplexity",
+    extra: ">perplexity",
     tabbed: true,
   });
 });
