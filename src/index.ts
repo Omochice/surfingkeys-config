@@ -45,7 +45,7 @@ api.mapkey("Y", "yank current page as markdown link", () => {
 });
 
 api.addSearchAlias(
-  "mdn",
+  ">mdn",
   "MDN",
   "https://developer.mozilla.org/ja/search?q=",
   "s",
@@ -53,21 +53,21 @@ api.addSearchAlias(
 );
 
 api.addSearchAlias(
-  "android",
+  ">android",
   "Android",
   "https://developer.android.com/s/results?q=",
   "s",
 );
 
 api.addSearchAlias(
-  "iosref",
+  ">ios",
   "iOSRef",
   "https://developer.apple.com/search/?type=Documentation&q=",
   "s",
 );
 
 api.addSearchAlias(
-  "perplexity",
+  ">perplexity",
   "Perplexity",
   "https://www.perplexity.ai/?q=",
   "p",
