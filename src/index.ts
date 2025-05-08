@@ -115,6 +115,6 @@ api.mapkey("<Alt-n>", "move next tab", () => {
 });
 
 /** @see https://github.com/brookhong/Surfingkeys/blob/3d799e10c38631fcf314f3dab0bfff54372e5237/src/content_scripts/common/normal.js#L936 */
-api.mapkey("<Alt-Shift-n>", "move prev tab", () => {
+api.mapkey("<Alt-N>", "move prev tab", () => {
   api.RUNTIME("previousTab");
 });
