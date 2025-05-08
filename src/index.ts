@@ -108,3 +108,13 @@ api.mapkey("T", "open tab search", () => {
     tabbed: false,
   });
 });
+
+/** @see https://github.com/brookhong/Surfingkeys/blob/3d799e10c38631fcf314f3dab0bfff54372e5237/src/content_scripts/common/normal.js#L944 */
+api.mapkey("<Alt-n>", "move next tab", () => {
+  api.RUNTIME("nextTab");
+});
+
+/** @see https://github.com/brookhong/Surfingkeys/blob/3d799e10c38631fcf314f3dab0bfff54372e5237/src/content_scripts/common/normal.js#L936 */
+api.mapkey("<Alt-Shift-n>", "move prev tab", () => {
+  api.RUNTIME("previousTab");
+});
