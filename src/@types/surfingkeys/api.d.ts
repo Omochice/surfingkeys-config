@@ -635,8 +635,8 @@ type Api = {
    */
   RUNTIME(
     action: string,
-    args: object,
-    callback: (response: unknown) => void,
+    args?: object,
+    callback?: (response: unknown) => void,
   ): void;
   Front: Front;
   Hints: Hints;
