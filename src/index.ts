@@ -38,6 +38,12 @@ api.mapkey("O", "search word in other tab", () => {
   });
 });
 
+api.mapkey("gy", "Yank current page as typst link", () => {
+  const text = `link("${window.location.href}")[${document.title}]`;
+  api.Clipboard.write(text);
+  api.Front.showBanner(`Yank this page as ${text}`);
+});
+
 api.mapkey("Y", "yank current page as markdown link", () => {
   const text = `[${document.title}](${window.location.href})`;
   api.Clipboard.write(text);
