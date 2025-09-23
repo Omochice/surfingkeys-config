@@ -12,8 +12,8 @@ importers:
         specifier: 2.2.4
         version: 2.2.4
       '@tsconfig/strictest':
-        specifier: 2.0.5
-        version: 2.0.5
+        specifier: 2.0.6
+        version: 2.0.6
       npm-run-all2:
         specifier: 8.0.4
         version: 8.0.4
@@ -183,8 +183,8 @@ packages:
   '@rolldown/pluginutils@1.0.0-beta.39':
     resolution: {integrity: sha512-GkTtNCV8ObWbq3LrJStPBv9jkRPct8WlwotVjx3aU0RwfH3LyheixWK9Zhaj22C4EQj/TJxYyetoX+uOn/MWKw==}
 
-  '@tsconfig/strictest@2.0.5':
-    resolution: {integrity: sha512-ec4tjL2Rr0pkZ5hww65c+EEPYwxOi4Ryv+0MtjeaSQRJyq322Q27eOQiFbuNgw2hpL4hB1/W/HBGk3VKS43osg==}
+  '@tsconfig/strictest@2.0.6':
+    resolution: {integrity: sha512-tPOhmDhIUcDjvpDDYyiUdssP84Eqm7n5KxJe5J3/g+s6xoDIPAf+SIn06dhw7VkhxIvLOnhDDrX7tsqMHNEhDg==}
 
   '@tybys/wasm-util@0.10.1':
     resolution: {integrity: sha512-9tTaPJLSiejZKx+Bmog4uSubteqTvFrVrURwkmHixBo0G4seD0zUxp98E1DzUBJxLQ3NPwXrGKDiVjwx/DpPsg==}
@@ -425,7 +425,7 @@ snapshots:
 
   '@rolldown/pluginutils@1.0.0-beta.39': {}
 
-  '@tsconfig/strictest@2.0.5': {}
+  '@tsconfig/strictest@2.0.6': {}
 
   '@tybys/wasm-util@0.10.1':
     dependencies:
