@@ -152,7 +152,7 @@ type Hints = {
    * Hints.style("div{border: solid 3px #707070; color:#efe1eb; background: none; background-color: #707070;} div.begin{color:red;}", "text");
    * ```
    */
-  style(css: string, mode?: string): void;
+  style(css: string, mode: "text" | null = null): void;
 };
 
 type Clipboard_ = {
@@ -233,7 +233,7 @@ type Visual = {
    * @param element element in visual mode, which can be `marks` and `cursor`.
    * @param style css style
    *
-   * @sxample
+   * @example
    *
    * ```javascript
    * Visual.style('marks', 'background-color: #89a1e2;');
@@ -642,7 +642,7 @@ type Api = {
   Hints: Hints;
   Clipboard: Clipboard_;
   Normal: Normal;
-  Visual: Viaual;
+  Visual: Visual;
 };
 
 declare const api: Api;
