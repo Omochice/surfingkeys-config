@@ -21,6 +21,7 @@ api.addSearchAlias("hd", "html.duckduckgo", "https://duckduckgo.com?q=", "s");
 
 settings.defaultSearchEngine = "hd";
 api.Hints.style("font-size: 16px;");
+api.Hints.style("font-size: 16px;", "text");
 
 api.mapkey("o", "search word in current tab", () => {
   api.Front.openOmnibar({
