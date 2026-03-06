@@ -26,7 +26,6 @@ api.Hints.style("font-size: 16px;", "text");
 api.mapkey("o", "search word in current tab", () => {
   api.Front.openOmnibar({
     type: "URLs",
-    extra: "hd",
     tabbed: false,
   });
 });
@@ -34,7 +33,6 @@ api.mapkey("o", "search word in current tab", () => {
 api.mapkey("O", "search word in other tab", () => {
   api.Front.openOmnibar({
     type: "URLs",
-    extra: "hd",
     tabbed: true,
   });
 });
