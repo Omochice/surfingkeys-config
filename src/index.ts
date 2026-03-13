@@ -14,6 +14,9 @@ api.map("H", "S");
 api.map("L", "D");
 
 api.unmap("ZZ");
+api.unmap(";t");
+api.vunmap("t");
+api.vunmap("q");
 
 api.removeSearchAlias("d");
 
