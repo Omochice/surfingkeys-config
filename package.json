@@ -20,7 +20,7 @@
   "devDependencies": {
     "@biomejs/biome": "2.5.6",
     "@tsconfig/strictest": "2.0.8",
-    "npm-run-all2": "9.0.2",
+    "npm-run-all2": "9.0.3",
     "rolldown": "1.2.0",
     "sort-package-json": "4.0.0",
     "typescript": "7.0.2"
