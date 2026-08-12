@@ -25,7 +25,7 @@
     "sort-package-json": "4.0.0",
     "typescript": "7.0.2"
   },
-  "packageManager": "pnpm@11.20.0",
+  "packageManager": "pnpm@11.21.0",
   "pnpm": {
     "onlyBuiltDependencies": [
       "@biomejs/biome"
