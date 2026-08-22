@@ -21,7 +21,7 @@
     "@biomejs/biome": "2.5.9",
     "@tsconfig/strictest": "2.0.8",
     "npm-run-all2": "9.0.3",
-    "rolldown": "1.2.4",
+    "rolldown": "1.2.5",
     "sort-package-json": "4.0.0",
     "typescript": "7.0.2"
   },
