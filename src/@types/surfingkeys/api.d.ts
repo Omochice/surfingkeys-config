@@ -408,6 +408,8 @@ type Api = {
    */
   vunmap(keystroke: string, domain?: RegExp): void;
 
+  cunmap(keystroke: string, domain?: RegExp): void;
+
   /**
    * Map a key sequence to another in lurk mode.
    * @see {@link Api.map}

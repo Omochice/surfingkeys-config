@@ -7,8 +7,7 @@ api.unmap("M");
 api.unmap("m");
 api.unmap("B");
 api.unmap("b");
-
-api.cmap("<Ctrl-j>", "");
+api.cunmap("<Ctrl-j>");
 
 api.map("H", "S");
 api.map("L", "D");
