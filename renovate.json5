@@ -6,5 +6,6 @@
   "git-submodules": {
     enabled: true,
     schedule: ["* * * * 1"],
+    updateNotScheduled: false,
   },
 }
