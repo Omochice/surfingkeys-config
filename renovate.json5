@@ -3,4 +3,8 @@
   extends: [
     "github>Omochice/personal-renovate-config#v1.18.0",
   ],
+  "git-submodules": {
+    enabled: true,
+    schedule: ["* * * * 1"],
+  },
 }
