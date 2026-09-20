@@ -1,0 +1,4 @@
+[submodule "vendor/Surfingkeys"]
+	path = vendor/Surfingkeys
+	url = https://github.com/Omochice/Surfingkeys.git
+	shallow = true

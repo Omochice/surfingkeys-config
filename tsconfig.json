@@ -1,7 +1,10 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": ["@tsconfig/strictest/tsconfig.json"],
-  "include": ["src"],
+  "include": [
+    "src",
+    "vendor/Surfingkeys/apps/extension/src/user_scripts/types/*.d.ts"
+  ],
   "compilerOptions": {
     "outDir": "dist",
     "target": "ESNext",
