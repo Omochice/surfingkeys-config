@@ -29,7 +29,7 @@ const parseTranslation = (body: string): string | undefined => {
   }
 };
 
-const translateSelectionTo = (targetLanguage: string) => () => {
+const translateSelectionIntoJapanese = () => {
   const text = window.getSelection()?.toString().trim();
   if (!text) {
     return;
@@ -37,7 +37,7 @@ const translateSelectionTo = (targetLanguage: string) => () => {
   const params = new URLSearchParams({
     client: "gtx",
     sl: "auto",
-    tl: targetLanguage,
+    tl: "ja",
     dt: "t",
     q: text,
   });
@@ -48,7 +48,7 @@ const translateSelectionTo = (targetLanguage: string) => () => {
     { url: `https://translate.googleapis.com/translate_a/single?${params}` },
     (response) => {
       const translated = parseTranslation(response.text ?? "");
-      if (translated === undefined) {
+      if (!translated) {
         api.Front.showBanner(
           `Failed to translate: ${response.error ?? "unexpected response"}`,
         );
@@ -149,6 +149,6 @@ api.mapkey(
 
 api.vmapkey(
   "tr",
-  "translate selection into japanese",
-  translateSelectionTo("ja"),
+  "translate selection into Japanese",
+  translateSelectionIntoJapanese,
 );
