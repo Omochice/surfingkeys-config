@@ -150,6 +150,6 @@ api.mapkey(
 
 api.vmapkey(
   "tr",
-  "translate selection into japanese",
+  "translate selection into Japanese",
   translateSelectionTo("ja"),
 );
