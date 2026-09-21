@@ -78,7 +78,7 @@ api.mapkey(
 
 api.mapkey(
   "B",
-  "open bookmark in current tab",
+  "open bookmark in other tab",
   openOmnibar({ type: "Bookmarks", tabbed: true }),
 );
 
