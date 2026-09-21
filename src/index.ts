@@ -1,5 +1,3 @@
-api.unmap("H");
-api.unmap("L");
 api.unmap("O");
 api.unmap("o");
 api.unmap("Y");
