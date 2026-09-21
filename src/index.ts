@@ -1,3 +1,13 @@
+const openOmnibar = (args: Record<string, unknown>) => () => {
+  api.Front.openOmnibar(args);
+};
+
+const yankPageAs = (format: (title: string, url: string) => string) => () => {
+  const text = format(document.title, window.location.href);
+  api.Clipboard.write(text);
+  api.Front.showBanner(`Yank this page as ${text}`);
+};
+
 api.unmap("O");
 api.unmap("o");
 api.unmap("Y");
@@ -23,31 +33,29 @@ settings.defaultSearchEngine = "hd";
 api.Hints.style("font-size: 16px;");
 api.Hints.style("font-size: 16px;", "text");
 
-api.mapkey("o", "search word in current tab", () => {
-  api.Front.openOmnibar({
-    type: "URLs",
-    tabbed: false,
-  });
-});
+api.mapkey(
+  "o",
+  "search word in current tab",
+  openOmnibar({ type: "URLs", tabbed: false }),
+);
 
-api.mapkey("O", "search word in other tab", () => {
-  api.Front.openOmnibar({
-    type: "URLs",
-    tabbed: true,
-  });
-});
+api.mapkey(
+  "O",
+  "search word in other tab",
+  openOmnibar({ type: "URLs", tabbed: true }),
+);
 
-api.mapkey("gy", "Yank current page as typst link", () => {
-  const text = `link("${window.location.href}")[${document.title}]`;
-  api.Clipboard.write(text);
-  api.Front.showBanner(`Yank this page as ${text}`);
-});
+api.mapkey(
+  "gy",
+  "Yank current page as typst link",
+  yankPageAs((title, url) => `link("${url}")[${title}]`),
+);
 
-api.mapkey("Y", "yank current page as markdown link", () => {
-  const text = `[${document.title}](${window.location.href})`;
-  api.Clipboard.write(text);
-  api.Front.showBanner(`Yank this page as ${text}`);
-});
+api.mapkey(
+  "Y",
+  "yank current page as markdown link",
+  yankPageAs((title, url) => `[${title}](${url})`),
+);
 
 api.addSearchAlias(
   ">perplexity",
@@ -56,38 +64,32 @@ api.addSearchAlias(
   "p",
 );
 
-api.mapkey("P", "search word on perplexity in other tab", () => {
-  api.Front.openOmnibar({
-    type: "SearchEngine",
-    extra: ">perplexity",
-    tabbed: true,
-  });
-});
+api.mapkey(
+  "P",
+  "search word on perplexity in other tab",
+  openOmnibar({ type: "SearchEngine", extra: ">perplexity", tabbed: true }),
+);
 
-api.mapkey("b", "open bookmark in current tab", () => {
-  api.Front.openOmnibar({
-    type: "Bookmarks",
-    tabbed: false,
-  });
-});
+api.mapkey(
+  "b",
+  "open bookmark in current tab",
+  openOmnibar({ type: "Bookmarks", tabbed: false }),
+);
 
-api.mapkey("B", "open bookmark in current tab", () => {
-  api.Front.openOmnibar({
-    type: "Bookmarks",
-    tabbed: true,
-  });
-});
+api.mapkey(
+  "B",
+  "open bookmark in current tab",
+  openOmnibar({ type: "Bookmarks", tabbed: true }),
+);
 
-api.mapkey("t", "open tab search", () => {
-  api.Front.openOmnibar({
-    type: "Tabs",
-    tabbed: false,
-  });
-});
+api.mapkey(
+  "t",
+  "open tab search",
+  openOmnibar({ type: "Tabs", tabbed: false }),
+);
 
-api.mapkey("T", "open tab search", () => {
-  api.Front.openOmnibar({
-    type: "Tabs",
-    tabbed: false,
-  });
-});
+api.mapkey(
+  "T",
+  "open tab search",
+  openOmnibar({ type: "Tabs", tabbed: false }),
+);
