@@ -17,13 +17,14 @@ const parseTranslation = (body: string): string | undefined => {
     if (!Array.isArray(sentences)) {
       return undefined;
     }
-    return sentences
+    const translated = sentences
       .map((sentence: unknown) =>
         Array.isArray(sentence) && typeof sentence[0] === "string"
           ? sentence[0]
           : "",
       )
       .join("");
+    return translated === "" ? undefined : translated;
   } catch {
     return undefined;
   }
