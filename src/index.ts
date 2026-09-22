@@ -29,7 +29,9 @@ const parseTranslation = (body: string): string | undefined => {
   }
 };
 
-const translateSelectionIntoJapanese = () => {
+type RequestResponse = { text?: string; error?: string };
+
+const translateSelectionIntoJapanese = async () => {
   const text = window.getSelection()?.toString().trim();
   if (!text) {
     return;
@@ -43,21 +45,20 @@ const translateSelectionIntoJapanese = () => {
   });
   // The request goes through the background page because a fetch from the
   // page itself is subject to the CSP of whatever site is open.
-  api.RUNTIME<{ text?: string; error?: string }>(
-    "request",
-    { url: `https://translate.googleapis.com/translate_a/single?${params}` },
-    (response) => {
-      const translated = parseTranslation(response.text ?? "");
-      if (!translated) {
-        api.Front.showBanner(
-          `Failed to translate: ${response.error ?? "unexpected response"}`,
-        );
-        return;
-      }
-      api.Front.showPopup(
-        `<div style="white-space: pre-wrap;">${escapeHtml(translated)}</div>`,
-      );
-    },
+  const response = await api
+    .request<RequestResponse>("request", {
+      url: `https://translate.googleapis.com/translate_a/single?${params}`,
+    })
+    .catch((error: unknown): RequestResponse => ({ error: String(error) }));
+  const translated = parseTranslation(response.text ?? "");
+  if (!translated) {
+    api.Front.showBanner(
+      `Failed to translate: ${response.error ?? "unexpected response"}`,
+    );
+    return;
+  }
+  api.Front.showPopup(
+    `<div style="white-space: pre-wrap;">${escapeHtml(translated)}</div>`,
   );
 };
 
