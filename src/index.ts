@@ -80,7 +80,10 @@ api.vunmap("q");
 
 api.removeSearchAlias("d");
 
-api.addSearchAlias("hd", "html.duckduckgo", "https://duckduckgo.com?q=", "s");
+api.addSearchAlias("hd", "https://duckduckgo.com?q=", {
+  prompt: "html.duckduckgo",
+  searchLeaderKey: "s",
+});
 
 settings.defaultSearchEngine = "hd";
 api.Hints.style("font-size: 16px;");
@@ -110,12 +113,10 @@ api.mapkey(
   yankPageAs((title, url) => `[${title}](${url})`),
 );
 
-api.addSearchAlias(
-  ">perplexity",
-  "Perplexity",
-  "https://www.perplexity.ai/?q=",
-  "p",
-);
+api.addSearchAlias(">perplexity", "https://www.perplexity.ai/?q=", {
+  prompt: "Perplexity",
+  searchLeaderKey: "p",
+});
 
 api.mapkey(
   "P",
