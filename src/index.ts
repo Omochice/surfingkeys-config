@@ -89,28 +89,28 @@ settings.defaultSearchEngine = "hd";
 api.Hints.style("font-size: 16px;");
 api.Hints.style("font-size: 16px;", "text");
 
-api.mapkey(
-  "o",
-  "search word in current tab",
-  openOmnibar({ type: "URLs", tabbed: false }),
-);
+api.mapkey("o", openOmnibar({ type: "URLs", tabbed: false }), {
+  annotation: "search word in current tab",
+});
 
-api.mapkey(
-  "O",
-  "search word in other tab",
-  openOmnibar({ type: "URLs", tabbed: true }),
-);
+api.mapkey("O", openOmnibar({ type: "URLs", tabbed: true }), {
+  annotation: "search word in other tab",
+});
 
 api.mapkey(
   "gy",
-  "Yank current page as typst link",
   yankPageAs((title, url) => `link("${url}")[${title}]`),
+  {
+    annotation: "Yank current page as typst link",
+  },
 );
 
 api.mapkey(
   "Y",
-  "yank current page as markdown link",
   yankPageAs((title, url) => `[${title}](${url})`),
+  {
+    annotation: "yank current page as markdown link",
+  },
 );
 
 api.addSearchAlias(">perplexity", "https://www.perplexity.ai/?q=", {
@@ -120,36 +120,28 @@ api.addSearchAlias(">perplexity", "https://www.perplexity.ai/?q=", {
 
 api.mapkey(
   "P",
-  "search word on perplexity in other tab",
   openOmnibar({ type: "SearchEngine", extra: ">perplexity", tabbed: true }),
+  {
+    annotation: "search word on perplexity in other tab",
+  },
 );
 
-api.mapkey(
-  "b",
-  "open bookmark in current tab",
-  openOmnibar({ type: "Bookmarks", tabbed: false }),
-);
+api.mapkey("b", openOmnibar({ type: "Bookmarks", tabbed: false }), {
+  annotation: "open bookmark in current tab",
+});
 
-api.mapkey(
-  "B",
-  "open bookmark in other tab",
-  openOmnibar({ type: "Bookmarks", tabbed: true }),
-);
+api.mapkey("B", openOmnibar({ type: "Bookmarks", tabbed: true }), {
+  annotation: "open bookmark in other tab",
+});
 
-api.mapkey(
-  "t",
-  "open tab search",
-  openOmnibar({ type: "Tabs", tabbed: false }),
-);
+api.mapkey("t", openOmnibar({ type: "Tabs", tabbed: false }), {
+  annotation: "open tab search",
+});
 
-api.mapkey(
-  "T",
-  "open tab search",
-  openOmnibar({ type: "Tabs", tabbed: false }),
-);
+api.mapkey("T", openOmnibar({ type: "Tabs", tabbed: false }), {
+  annotation: "open tab search",
+});
 
-api.vmapkey(
-  "tr",
-  "translate selection into Japanese",
-  translateSelectionIntoJapanese,
-);
+api.vmapkey("tr", translateSelectionIntoJapanese, {
+  annotation: "translate selection into Japanese",
+});
