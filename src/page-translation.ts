@@ -1,5 +1,6 @@
-import { restore, serialize } from "./inline-markup";
+import { normalizeWhitespace, restore, serialize } from "./inline-markup";
 import { translateIntoJapanese } from "./ollama";
+import { showTranslationFailure } from "./translation-failure";
 
 const BLOCK_SELECTOR =
   "p, li, h1, h2, h3, h4, h5, h6, td, th, blockquote, dt, dd, figcaption, caption, summary";
@@ -14,7 +15,6 @@ const CONCURRENCY = 2;
 type Original = { block: Element; children: Node[]; title: string | null };
 
 type Session = {
-  generation: number;
   observer: IntersectionObserver;
   queue: Element[];
   running: number;
@@ -22,19 +22,14 @@ type Session = {
   failureReported: boolean;
 };
 
-let generation = 0;
 let session: Session | undefined;
 
-const normalize = (text: string) => text.replace(/\s+/g, " ").trim();
-
 const isCandidate = (block: Element) => {
-  const text = normalize(block.textContent ?? "");
-  return (
-    LETTER.test(text) &&
-    !JAPANESE.test(text) &&
-    block.closest(EXCLUDED_ANCESTOR_SELECTOR) === null &&
-    serialize(block) !== undefined
-  );
+  if (block.closest(EXCLUDED_ANCESTOR_SELECTOR) !== null) {
+    return false;
+  }
+  const text = block.textContent ?? "";
+  return LETTER.test(text) && !JAPANESE.test(text);
 };
 
 const reportFailure = (current: Session, error: unknown) => {
@@ -42,9 +37,7 @@ const reportFailure = (current: Session, error: unknown) => {
     return;
   }
   current.failureReported = true;
-  api.Front.showBanner(
-    `Failed to translate: ${error instanceof Error ? error.message : String(error)}`,
-  );
+  showTranslationFailure(error);
 };
 
 const translateBlock = async (current: Session, block: Element) => {
@@ -56,7 +49,7 @@ const translateBlock = async (current: Session, block: Element) => {
   const translated = await translateIntoJapanese(serialized.text);
   // The page may have rewritten the block while the model was running, and
   // the slots would then point at nodes that are no longer there.
-  if (current.generation !== generation || block.textContent !== source) {
+  if (session !== current || block.textContent !== source) {
     return;
   }
   const nodes = restore(translated, serialized.slots);
@@ -68,12 +61,12 @@ const translateBlock = async (current: Session, block: Element) => {
     children: Array.from(block.childNodes),
     title: block.getAttribute("title"),
   });
-  block.setAttribute("title", normalize(source ?? ""));
+  block.setAttribute("title", normalizeWhitespace(source ?? ""));
   block.replaceChildren(...nodes);
 };
 
 const drain = (current: Session) => {
-  while (current.generation === generation && current.running < CONCURRENCY) {
+  while (session === current && current.running < CONCURRENCY) {
     const block = current.queue.shift();
     if (block === undefined) {
       return;
@@ -81,7 +74,7 @@ const drain = (current: Session) => {
     current.running += 1;
     translateBlock(current, block)
       .catch((error: unknown) => {
-        if (current.generation === generation) {
+        if (session === current) {
           reportFailure(current, error);
         }
       })
@@ -93,9 +86,7 @@ const drain = (current: Session) => {
 };
 
 const start = (): Session => {
-  generation += 1;
   const current: Session = {
-    generation,
     observer: new IntersectionObserver((entries) => {
       for (const entry of entries) {
         if (entry.isIntersecting) {
@@ -110,9 +101,7 @@ const start = (): Session => {
     originals: [],
     failureReported: false,
   };
-  for (const block of Array.from(
-    document.body.querySelectorAll(BLOCK_SELECTOR),
-  )) {
+  for (const block of document.body.querySelectorAll(BLOCK_SELECTOR)) {
     if (isCandidate(block)) {
       current.observer.observe(block);
     }
@@ -121,7 +110,6 @@ const start = (): Session => {
 };
 
 const stop = (current: Session) => {
-  generation += 1;
   current.observer.disconnect();
   current.queue.length = 0;
   for (const { block, children, title } of current.originals) {

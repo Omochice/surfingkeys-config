@@ -2,6 +2,10 @@ const VERBATIM_TAGS = new Set(["CODE", "KBD", "SAMP", "VAR"]);
 const WRAPPER_TAGS = new Set(["A", "EM", "STRONG", "B", "I"]);
 const TOKEN = /\{\{(\d+)\}\}|<t(\d+)>|<\/t(\d+)>/;
 
+/** Collapses whitespace the way a browser renders it, so equal-looking text compares equal. */
+export const normalizeWhitespace = (text: string) =>
+  text.replace(/\s+/g, " ").trim();
+
 /** Inline markup of a block flattened into text that a translator can carry through. */
 export type Serialized = {
   /** Plain text in which each slot appears as `{{n}}` or `<tn>…</tn>`. */
@@ -15,7 +19,7 @@ const serializeChildren = (
   slots: Element[],
 ): string | undefined => {
   let text = "";
-  for (const child of Array.from(parent.childNodes)) {
+  for (const child of parent.childNodes) {
     if (child.nodeType === Node.TEXT_NODE) {
       const data = child.textContent ?? "";
       // Text that already looks like a slot would be indistinguishable from
@@ -25,12 +29,10 @@ const serializeChildren = (
       }
       text += data;
     } else if (child instanceof Element) {
-      const index = slots.length;
+      const index = slots.push(child) - 1;
       if (VERBATIM_TAGS.has(child.tagName)) {
-        slots.push(child);
         text += `{{${index}}}`;
       } else if (WRAPPER_TAGS.has(child.tagName)) {
-        slots.push(child);
         const inner = serializeChildren(child, slots);
         if (inner === undefined) {
           return undefined;
@@ -54,7 +56,7 @@ export const serialize = (block: Element): Serialized | undefined => {
   if (text === undefined) {
     return undefined;
   }
-  return { text: text.replace(/\s+/g, " ").trim(), slots };
+  return { text: normalizeWhitespace(text), slots };
 };
 
 type Frame = { index: number; element: Element | undefined; children: Node[] };
