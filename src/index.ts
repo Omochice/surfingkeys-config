@@ -1,3 +1,4 @@
+import { togglePageTranslation } from "./page-translation";
 import { translateSelectionIntoJapanese } from "./selection-translation";
 
 const openOmnibar = (args: Record<string, unknown>) => () => {
@@ -23,7 +24,6 @@ api.map("H", "S");
 api.map("L", "D");
 
 api.unmap("ZZ");
-api.unmap(";t");
 api.vunmap("t");
 api.vunmap("q");
 
@@ -93,4 +93,8 @@ api.mapkey("T", openOmnibar({ type: "Tabs", tabbed: false }), {
 
 api.vmapkey("tr", translateSelectionIntoJapanese, {
   annotation: "translate selection into Japanese",
+});
+
+api.mapkey(";t", togglePageTranslation, {
+  annotation: "translate page into Japanese",
 });
