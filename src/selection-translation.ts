@@ -1,4 +1,5 @@
 import { translateIntoJapanese } from "./ollama";
+import { showTranslationFailure } from "./translation-failure";
 
 const escapeHtml = (text: string) =>
   text.replace(/[&<>"']/g, (char) => `&#${char.charCodeAt(0)};`);
@@ -19,8 +20,6 @@ export const translateSelectionIntoJapanese = async () => {
       `<div style="white-space: pre-wrap;">${escapeHtml(translated)}</div>`,
     );
   } catch (error: unknown) {
-    api.Front.showBanner(
-      `Failed to translate: ${error instanceof Error ? error.message : String(error)}`,
-    );
+    showTranslationFailure(error);
   }
 };
